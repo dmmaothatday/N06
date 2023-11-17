@@ -30,8 +30,8 @@ class Student:
         self.address = value
 
 class StudentA(Student):
-    def __init__(self, id_number, exam_number, name, address, math, physics, chemistry):
-        super().__init__(id_number, exam_number, name, address)
+    def __init__(self, id_number, candidate_number, name, address, math, physics, chemistry):
+        super().__init__(id_number, candidate_number, name, address)
         self.math = math
         self.physics = physics
         self.chemistry = chemistry
@@ -55,8 +55,8 @@ class StudentA(Student):
         self.chemistry = value
 
 class StudentB(Student):
-    def __init__(self, id_number, exam_number, name, address, math, chemistry, biology):
-        super().__init__(id_number, exam_number, name, address)
+    def __init__(self, id_number, candidate_number, name, address, math, chemistry, biology):
+        super().__init__(id_number, candidate_number, name, address)
         self.math = math
         self.chemistry = chemistry
         self.biology = biology
