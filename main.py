@@ -28,27 +28,36 @@ if __name__ == "__main__":
         print()
 
         if option == '1': #Thêm mới thí sinh
-            id_number = input('Nhập số CMND: ')
-            candidate_number = input('Nhập số báo danh: ')
-            name = input('Nhập họ và tên: ')
-            address = input('Nhập địa chỉ: ')
-            student_type = input('Loại thí sinh (A hoặc B): ')
-            if student_type == 'A':
-                math = float(input('Nhập điểm toán: '))
-                physics = float(input('Nhập điểm lý: '))
-                chemistry = float(input('Nhập điểm hóa: '))
-                student = StudentA(id_number, candidate_number, name, address, math, physics, chemistry)
-            elif student_type == 'B':
-                math = float(input('Nhập điểm toán: '))
-                chemistry = float(input('Nhập điểm hóa: '))
-                biology = float(input('Nhập điểm sinh: '))
-                student = StudentB(id_number, candidate_number, name, address, math, chemistry, biology)
-            else:
-                print('Loại thí sinh không hợp lệ')
+            try:
+                id_number = int(input('Nhập số CMND: '))
+                candidate_number = int(input('Nhập số báo danh: '))
+                if not candidate_number.startswith('S'):
+                    print("Số báo danh phải bắt đầu bằng 'S'. Vui lòng nhập lại.")
+                    continue  # Yêu cầu người dùng nhập lại candidate_number
+                if data.find_student(candidate_number=candidate_number, id_number=id_number):
+                    print("Đã tồn tại thí sinh")
+                else:
+                    name = input('Nhập họ và tên: ')
+                    address = input('Nhập địa chỉ: ')                 
+                    student_type = input('Khối thí sinh (A hoặc B): ')
+                    if student_type == 'A' or student_type == 'a':
+                        math = float(input('Nhập điểm toán: '))
+                        physics = float(input('Nhập điểm lý: '))
+                        chemistry = float(input('Nhập điểm hóa: '))
+                        student = StudentA(id_number, candidate_number, name, address, math, physics, chemistry)
+                    elif student_type == 'B' or student_type == 'b':
+                        math = float(input('Nhập điểm toán: '))
+                        chemistry = float(input('Nhập điểm hóa: '))
+                        biology = float(input('Nhập điểm sinh: '))
+                        student = StudentB(id_number, candidate_number, name, address, math, chemistry, biology)
 
-            data.add_student(student)
-
-            print('Thêm thí sinh thành công')
+                    data.add_student(student)
+                    print('Thêm thí sinh thành công')
+                    break
+            except ValueError as e:
+                print("Lỗi: Vui lòng nhập đúng định dạng dữ liệu cmnd: số, tên, địa chỉ: chữ, khối thí sinh: AB hoặc ab, môn: số")
+            except Exception as e:
+                print('Đã xảy ra lỗi: ', e)
             print()
             pass
 
@@ -70,8 +79,8 @@ if __name__ == "__main__":
                     print("Điểm Hóa học:", found_student.chemistry)
                     print("Điểm Sinh học:", found_student.biology)
             else:
-                print("Số báo danh không tồn tại.")
-                input_id = input("Vui lòng nhập số báo danh của thí sinh để tìm kiếm: ")
+                print("Không tồn tại thí sinh với số báo danh trên.")
+                input_id = input("Vui lòng nhập số căn cước công dân của thí sinh để tìm kiếm: ")
                 found_by_id = data.find_student(id_number=input_id)
                 if found_by_id is not None:
                     print("Thông tin của thí sinh:")
@@ -88,30 +97,32 @@ if __name__ == "__main__":
                         print("Điểm Hóa học:", found_by_id.chemistry)
                         print("Điểm Sinh học:", found_by_id.biology)
                 else:
-                    print("Không tìm thấy thí sinh.")
+                    print("Thí sinh không tồn tại.")
                 print()
             pass
 
         elif option == '3':#Sửa thông tin thí sinh
             candidate_number = input("Nhập số báo danh của thí sinh: ")
             id_number = input("Nhập số CMND thí sinh: ")
-
-            new_info = {}
-            new_info['name'] = input("Nhập tên mới của thí sinh (nhấn Enter nếu không thay đổi): ")
-            new_info['address'] = input("Nhập địa chỉ mới của thí sinh (nhấn Enter nếu không thay đổi): ")
-            exam_type = input("Nhập khối (A hoặc B): ")
-            if exam_type == "A":
-                new_info['math'] = float(input("Nhập điểm toán mới của thí sinh (nhấn Enter nếu không thay đổi): ") or found_student.math)
-                new_info['physics'] = float(input("Nhập điểm vật lý mới của thí sinh (nhấn Enter nếu không thay đổi): ") or found_student.physics)
-                new_info['chemistry'] = float(input("Nhập điểm hóa học mới của thí sinh (nhấn Enter nếu không thay đổi): ") or found_student.chemistry)
-            elif exam_type == "B":
-                new_info['math'] = float(input("Nhập điểm toán mới của thí sinh (nhấn Enter nếu không thay đổi): ") or found_student.math)
-                new_info['chemistry'] = float(input("Nhập điểm hóa học mới của thí sinh (nhấn Enter nếu không thay đổi): ") or found_student.chemistry)
-                new_info['biology'] = float(input("Nhập điểm toán mới của thí sinh (nhấn Enter nếu không thay đổi): ") or found_student.biology)
+            if(data.find_student(candidate_number=candidate_number, id_number=id_number)):
+                new_info = {}
+                new_info['name'] = input("Nhập tên mới của thí sinh (nhấn Enter nếu không thay đổi): ")
+                new_info['address'] = input("Nhập địa chỉ mới của thí sinh (nhấn Enter nếu không thay đổi): ")
+                exam_type = input("Nhập khối (A hoặc B): ")
+                if exam_type == "A":
+                    new_info['math'] = float(input("Nhập điểm toán mới của thí sinh (nhấn Enter nếu không thay đổi): ") )
+                    new_info['physics'] = float(input("Nhập điểm vật lý mới của thí sinh (nhấn Enter nếu không thay đổi): ") )
+                    new_info['chemistry'] = float(input("Nhập điểm hóa học mới của thí sinh (nhấn Enter nếu không thay đổi): ") )
+                elif exam_type == "B":
+                    new_info['math'] = float(input("Nhập điểm toán mới của thí sinh (nhấn Enter nếu không thay đổi): ") )
+                    new_info['chemistry'] = float(input("Nhập điểm hóa học mới của thí sinh (nhấn Enter nếu không thay đổi): ") )
+                    new_info['biology'] = float(input("Nhập điểm toán mới của thí sinh (nhấn Enter nếu không thay đổi): ") )
+                else:
+                    print("Không tìm thấy thí sinh .")
+                data.update_student(candidate_number, id_number, new_info)
+                print("Sửa thông tin thành công")
             else:
-                print("Không tìm thấy thí sinh .")
-            data.update_student(candidate_number, id_number, new_info)
-            print("Sửa thông tin thành công")
+                print("Thí sinh không tồn tại.")
             print()
 
             pass
