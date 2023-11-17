@@ -55,7 +55,7 @@ if __name__ == "__main__":
                     print('Thêm thí sinh thành công')
                     break
             except ValueError as e:
-                print("Lỗi: Vui lòng nhập đúng định dạng dữ liệu cmnd: số, tên, địa chỉ: chữ, khối thí sinh: AB hoặc ab, môn: số")
+                print("Lỗi: Vui lòng nhập đúng định dạng dữ liệu cmnd: S + số, tên: chữ, địa chỉ: chữ, khối thí sinh: A hoặc B hoặc a hoặc b, môn: số")
             except Exception as e:
                 print('Đã xảy ra lỗi: ', e)
             print()
