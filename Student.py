@@ -1,80 +1,82 @@
 class Student:
-    def __init__(self, id_number, candidate_number, name, address):
-        self.id_number = id_number
-        self.candidate_number = candidate_number
-        self.name = name
-        self.address = address
+    def __init__(self, cccd, sbd, ho_ten, dia_chi):
+        self.cccd = cccd
+        self.sbd = sbd
+        self.ho_ten = ho_ten
+        self.dia_chi = dia_chi
 
-    def get_id_number(self):
-        return self.id_number
+    def get_cccd(self):
+        return self.cccd
 
-    def set_id_number(self, value):
-        self.id_number = value
+    def set_cccd(self, cccd):
+        self.cccd = cccd
 
-    def get_candidate_number(self):
-        return self.candidate_number
+    def get_sbd(self):
+        return self.sbd
 
-    def set_candidate_number(self, value):
-        self.candidate_number = value
+    def set_sbd(self, sbd):
+        self.sbd = sbd
 
-    def get_name(self):
-        return self.name
+    def get_ho_ten(self):
+        return self.ho_ten
 
-    def set_name(self, value):
-        self.name = value
+    def set_ho_ten(self, ho_ten):
+        self.ho_ten = ho_ten
 
-    def get_address(self):
-        return self.address
+    def get_dia_chi(self):
+        return self.dia_chi
 
-    def set_address(self, value):
-        self.address = value
+    def set_dia_chi(self, dia_chi):
+        self.dia_chi = dia_chi
+
 
 class StudentA(Student):
-    def __init__(self, id_number, candidate_number, name, address, math, physics, chemistry):
-        super().__init__(id_number, candidate_number, name, address)
-        self.math = math
-        self.physics = physics
-        self.chemistry = chemistry
+    def __init__(self, cccd, sbd, ho_ten, dia_chi, diem_toan, diem_ly, diem_hoa):
+        super().__init__(cccd, sbd, ho_ten, dia_chi)
+        self.diem_toan = diem_toan
+        self.diem_ly = diem_ly
+        self.diem_hoa = diem_hoa
 
-    def get_math(self):
-        return self.math
+    def get_diem_toan(self):
+        return self.diem_toan
 
-    def set_math(self, value):
-        self.math = value
+    def set_diem_toan(self, diem):
+        self.diem_toan = diem
 
-    def get_physics(self):
-        return self.physics
+    def get_diem_ly(self):
+        return self.diem_ly
 
-    def set_physics(self, value):
-        self.physics = value
+    def set_diem_ly(self, diem):
+        self.diem_ly = diem
 
-    def get_chemistry(self):
-        return self.chemistry
+    def get_diem_hoa(self):
+        return self.diem_hoa
 
-    def set_chemistry(self, value):
-        self.chemistry = value
+    def set_diem_hoa(self, diem):
+        self.diem_hoa = diem
+
 
 class StudentB(Student):
-    def __init__(self, id_number, candidate_number, name, address, math, chemistry, biology):
-        super().__init__(id_number, candidate_number, name, address)
-        self.math = math
-        self.chemistry = chemistry
-        self.biology = biology
+    def __init__(self, cccd, sbd, ho_ten, dia_chi, diem_toan, diem_ly, diem_hoa):
+        super().__init__(cccd, sbd, ho_ten, dia_chi)
+        self.diem_toan = diem_toan
+        self.diem_ly = diem_ly
+        self.diem_hoa = diem_hoa
 
-    def get_math(self):
-        return self.math
+    def get_diem_toan(self):
+        return self.diem_toan
 
-    def set_math(self, value):
-        self.math = value
+    def set_diem_toan(self, diem):
+        self.diem_toan = diem
 
-    def get_chemistry(self):
-        return self.chemistry
+    def get_diem_hoa(self):
+        return self.diem_hoa
 
-    def set_chemistry(self, value):
-        self.chemistry = value
+    def set_diem_hoa(self, diem):
+        self.diem_hoa = diem
 
-    def get_biology(self):
-        return self.biology
+    def get_diem_sinh(self):
+        return self.diem_sinh
 
-    def set_biology(self, value):
-        self.biology = value
+    def set_diem_sinh(self, diem):
+        self.diem_sinh = diem
