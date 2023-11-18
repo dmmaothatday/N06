@@ -1,10 +1,12 @@
+
+
 from ManageStudents import ManageStudents
 from Student import StudentA, StudentB
 
 data = ManageStudents()
-data.add_new_student(StudentA('1','S1','a','hn',10,10,10))
-data.add_new_student(StudentB('2','S2','b','hn',1,2,3))
-data.add_new_student(StudentA('3','S3','c','hn',1,1,1))
+data.add_new_student(StudentA('05','5','a','hn',10,10,10))
+data.add_new_student(StudentB('06','6','b','hn',1,2,3))
+data.add_new_student(StudentA('07','7','c','hn',1,1,1))
 # data.add_new_student(StudentB('4','S4','d','hn',2,2,2))
 # data.add_new_student(StudentA('5','S5','f','hn',3,4,5))
 # data.add_new_student(StudentA('6','S6','a','hn',10,10,10))
@@ -15,72 +17,62 @@ data.add_new_student(StudentA('3','S3','c','hn',1,1,1))
 # data.add_new_student(StudentA('11','S11','a','hn',10,10,10))
 
 def is_valid_cccd(icccd):
-    # Kiểm tra xem số căn cước có đúng định dạng hay không
-    # Đảm bảo cccd không chứa ký tự đặc biệt, không có khoảng trắng, là số nguyên dương và không trùng với cccd khác
-    if not icccd:
-        print("Lỗi: Số CCCD không được để trống")
-        return False  # Trả về False nếu tên rỗng
+    # Loại bỏ dấu cách trong chuỗi CCCD
+    icccd = icccd.replace(" ", "")
+    
+    # Kiểm tra xem CCCD có chứa ký tự đặc biệt hay không
+    if not icccd.isalnum():
+        print("CCCD không được chứa ký tự đặc biệt.")
+        return False
     if not icccd.isdigit():
-        print("Lỗi: Số căn cước chỉ được chứa chữ số")
-        return False  # Trả về False nếu không phải toàn chữ số
-    if ' ' in icccd:
-        print("Lỗi: Số căn cước không được chứa khoảng trắng")
-        return False  # Trả về False nếu có khoảng trắng
-    if int(icccd) <= 0:
-        print("Lỗi: Số căn cước phải là số nguyên dương")
-        return False  # Trả về False nếu không phải số nguyên dương
-    return True  # Trả về True nếu số căn cước hợp lệ
+        print("Lỗi: CCCD chỉ được chứa số nguyên ")
+        return False
+    # Kiểm tra xem CCCD bắt đầu bằng số 0 hay không và có đúng 9 ký tự hay không
+    if  icccd[0] != "0":
+        print("CCCD phải bắt đầu bằng số 0 ")
+        return False
+    
+    return True
+
 
 def is_valid_cccd_f(icccd):
-    # Kiểm tra xem số căn cước có đúng định dạng hay không
-    # Đảm bảo cccd không chứa ký tự đặc biệt, không có khoảng trắng, là số nguyên dương và không trùng với cccd khác
-    if not icccd:
-        print("Lỗi: Số CCCD không được để trống")
-        return False  # Trả về False nếu tên rỗng
+    # Loại bỏ dấu cách trong chuỗi CCCD
+    icccd = icccd.replace(" ", "")
+    
+    # Kiểm tra xem CCCD có chứa ký tự đặc biệt hay không
+    if not icccd.isalnum():
+        print("CCCD không được chứa ký tự đặc biệt.")
+        return False
     if not icccd.isdigit():
-        print("Lỗi: Số căn cước chỉ được chứa chữ số")
-        return False  # Trả về False nếu không phải toàn chữ số
-    if ' ' in icccd:
-        print("Lỗi: Số căn cước không được chứa khoảng trắng")
-        return False  # Trả về False nếu có khoảng trắng
-    if int(icccd) <= 0:
-        print("Lỗi: Số căn cước phải là số nguyên dương")
-        return False  # Trả về False nếu không phải số nguyên dương
+        print("Lỗi: CCCD chỉ được chứa số nguyên ")
+        return False
+    # Kiểm tra xem CCCD bắt đầu bằng số 0 hay không và có đúng 9 ký tự hay không
+    if  icccd[0] != "0":
+        print("CCCD phải bắt đầu bằng số 0 ")
+        return False
     if data.search_student(cccd=icccd):
-        print("Lỗi: Số căn cước đã tồn tại trong danh sách khác")
-        return False  # Trả về False nếu số căn cước đã tồn tại trong danh sách khác
-    return True  # Trả về True nếu số căn cước hợp lệ
+        print("Lỗi: Số CCCD đã tồn tại trong danh sách khác")
+        return False  # Trả về False nếu số CCCD đã tồn tại trong danh sách khác
+    return True  # Trả về True nếu số CCCD hợp lệ
 
 def is_valid_sbd(isbd):
-    if not isbd:
-        print("Lỗi: Số báo danh không được để trống")
-        return False  # Trả về False nếu tên rỗng
-    if ' ' in isbd:
-        print("Lỗi: Số báo danh không được chứa khoảng trắng")
-        return False  # Trả về False nếu có khoảng trắng
-    if not isbd.startswith('S'):
-        print("Lỗi: Số báo danh phải bắt đầu bằng 'S'")
-        return False  # Trả về False nếu không bắt đầu bằng 'S'
-    num_part = isbd[1:]
-    if not num_part.isdigit() or int(num_part) <= 0:
-        print("Lỗi: Phần sau 'S' phải là số nguyên dương")
-        return False  # Trả về False nếu phần sau 'S' không phải là số nguyên dương
-    return True  # Trả về True nếu số báo danh hợp lệ
+    # Loại bỏ dấu cách trong chuỗi SBD
+    isbd = isbd.replace(" ", "")
+    # Kiểm tra xem SBD chứa ký tự đặc biệt hay không
+    if not isbd.isdigit():
+        print("Lỗi: SBD chỉ được chứa số nguyên và không chứa ký tự đặc biệt.")
+        return False
+    return True
+
+
 
 def is_valid_sbd_f(isbd):
-    if not isbd:
-        print("Lỗi: Số báo danh không được để trống")
-        return False  # Trả về False nếu tên rỗng
-    if ' ' in isbd:
-        print("Lỗi: Số báo danh không được chứa khoảng trắng")
-        return False  # Trả về False nếu có khoảng trắng
-    if not isbd.startswith('S'):
-        print("Lỗi: Số báo danh phải bắt đầu bằng 'S'")
-        return False  # Trả về False nếu không bắt đầu bằng 'S'
-    num_part = isbd[1:]
-    if not num_part.isdigit() or int(num_part) <= 0:
-        print("Lỗi: Phần sau 'S' phải là số nguyên dương")
-        return False  # Trả về False nếu phần sau 'S' không phải là số nguyên dương
+    # Loại bỏ dấu cách trong chuỗi SBD
+    isbd = isbd.replace(" ", "")
+    # Kiểm tra xem SBD chứa ký tự đặc biệt hay không
+    if not isbd.isdigit():
+        print("Lỗi: SBD chỉ được chứa số nguyên và không chứa ký tự đặc biệt.")
+        return False
     if data.search_student(sbd=isbd):
         print("Lỗi: Số báo danh đã tồn tại trong danh sách sinh viên")
         return False  # Trả về False nếu số báo danh đã tồn tại trong danh sách khác
@@ -88,44 +80,46 @@ def is_valid_sbd_f(isbd):
 
 
 def is_valid_name(iho_ten):
-    # Kiểm tra xem tên có đúng định dạng hay không
-    if not isinstance(iho_ten, str):
-        print("Lỗi: Tên phải là chuỗi")
-        return False  # Trả về False nếu không phải là chuỗi
-    if not iho_ten:
-        print("Lỗi: Tên không được để trống")
-        return False  # Trả về False nếu tên rỗng
-    if any(not char.isalnum() and char != " " for char in iho_ten):
-        print("Lỗi: Tên không được chứa ký tự đặc biệt hoặc số")
-        return False  # Trả về False nếu tên chứa ký tự đặc biệt hoặc số
-    return True  # Trả về True nếu tên hợp lệ
+    # Loại bỏ dấu cách ở đầu và cuối chuỗi tên
+    iho_ten = iho_ten.strip()
+
+    # Tách tên thành các từ và kiểm tra xem các từ có phải chỉ chứa chữ cái hay không
+    words = iho_ten.split()
+    for word in words:
+        if not word.isalpha():
+            print("Lỗi: Tên chỉ được chứa chữ cái và không chứa ký tự đặc biệt hoặc số.")
+            return False
+    
+    return True
+
+
 
 
 def is_valid_address(idia_chi):
-    # Kiểm tra xem địa chỉ có đúng định dạng hay không
-    if not isinstance(idia_chi, str):
-        print("Lỗi: Địa chỉ phải là chuỗi")
-        return False  # Trả về False nếu không phải là chuỗi
-    if not idia_chi.strip():
-        print("Lỗi: Địa chỉ không được để trống")
-        return False  # Trả về False nếu địa chỉ rỗng
-    if any(not char.isalnum() and char not in [',', '-', ' '] for char in idia_chi):
-        print("Lỗi: Địa chỉ không được chứa ký tự đặc biệt")
-        return False  # Trả về False nếu địa chỉ chứa ký tự đặc biệt
-    return True  # Trả về True nếu địa chỉ hợp lệ
+    # Loại bỏ dấu cách ở đầu và cuối chuỗi địa chỉ
+    idia_chi = idia_chi.strip()
+
+    # Tách địa chỉ thành các từ và kiểm tra xem các từ có phải chỉ chứa chữ cái hay không
+    words = idia_chi.split()
+    for word in words:
+        if not word.isalpha():
+            print("Lỗi: Địa chỉ chỉ được chứa chữ cái và không chứa ký tự đặc biệt hoặc số.")
+            return False
+    
+    return True
+
+
 
 def is_valid_mon(imon):
-    # Kiểm tra xem môn học có đúng định dạng hay không
-    if isinstance(imon, (int, float)):
-        if 0 <= imon <= 10:
-            return True
-        else:
-            print("Lỗi: Môn học phải là số từ 0 đến 10")
-            return False  # Trả về False nếu không nằm trong khoảng từ 0 đến 10
-    else:
-        print("Lỗi: Môn học phải là số nguyên hoặc số thực")
-        return False  # Trả về False nếu không phải là số nguyên hoặc số thực
+    # Loại bỏ khoảng trống trong chuỗi môn học
+    imon = imon.replace(" ", "")
 
+    # Kiểm tra xem imon có đúng định dạng và chỉ chứa số nguyên hoặc số thực hay không
+    if imon.replace(".", "", 1).isdigit():
+        return True
+    else:
+        print("Lỗi: Môn học phải là số nguyên hoặc số thực và không chứa ký tự chữ.")
+        return False
 
 
 
@@ -139,10 +133,10 @@ if __name__ == "__main__":
         print('6. Hiển thị danh sách thí sinh đạt học bổng')
         print('7. Hiển thị danh sách thí sinh không liệt môn nào')
         print('8. Thoát chương trình')
-        option = input('Vui lòng chọn chức năng (1-8): ')
+        choice = input('Vui lòng chọn chức năng (1-8): ')
         print()
 
-        if option == '1': #Thêm mới thí sinh
+        if choice == '1': #Thêm mới thí sinh
             while True:
                 cccd = input('Nhập số CCCD: ')
                 if not is_valid_cccd_f(cccd):
@@ -170,59 +164,62 @@ if __name__ == "__main__":
                     print("Vui lòng nhập lại.")
                 else:
                     break
-            
-            student_type = input('Khối thí sinh (A hoặc B): ')
-            if student_type == 'A' or student_type == 'a':
-                while True:
-                    diem_toan = float(input('Nhập điểm toán: '))
-                    if not is_valid_mon(diem_toan):
-                        print("Vui lòng nhập lại.")
-                    else:
-                        break
+            while True:
+                block = input('Khối thí sinh (A hoặc B): ')
+                if block == 'A' or block == 'a':
+                    while True:
+                        diem_toan = input('Nhập điểm toán: ')
+                        if not is_valid_mon(diem_toan):
+                            print("Vui lòng nhập lại.")
+                        else:
+                            break
 
-                while True:
-                    diem_ly = float(input('Nhập điểm lý: '))
-                    if not is_valid_mon(diem_ly):
-                        print("Vui lòng nhập lại.")
-                    else:
-                        break
+                    while True:
+                        diem_ly = input('Nhập điểm lý: ')
+                        if not is_valid_mon(diem_ly):
+                            print("Vui lòng nhập lại.")
+                        else:
+                            break
 
-                while True:
-                    diem_hoa = float(input('Nhập điểm hóa: '))
-                    if not is_valid_mon(diem_hoa):
-                        print("Vui lòng nhập lại.")
-                    else:
-                        break
-                student = StudentA(cccd, sbd, ho_ten, dia_chi, diem_toan, diem_ly, diem_hoa)
-            elif student_type == 'B' or student_type == 'b':
-                while True:
-                    diem_toan = float(input('Nhập điểm toán: '))
-                    if not is_valid_mon(diem_toan):
-                        print("Vui lòng nhập lại.")
-                    else:
-                        break
+                    while True:
+                        diem_hoa = input('Nhập điểm hóa: ')
+                        if not is_valid_mon(diem_hoa):
+                            print("Vui lòng nhập lại.")
+                        else:
+                            break
+                    student = StudentA(cccd, sbd, ho_ten, dia_chi, diem_toan, diem_ly, diem_hoa)
+                    break
+                elif block == 'B' or block == 'b':
+                    while True:
+                        diem_toan = input('Nhập điểm toán: ')
+                        if not is_valid_mon(diem_toan):
+                            print("Vui lòng nhập lại.")
+                        else:
+                            break
 
-                while True:
-                    diem_hoa = float(input('Nhập điểm lý: '))
-                    if not is_valid_mon(diem_hoa):
-                        print("Vui lòng nhập lại.")
-                    else:
-                        break
-                    
-                while True:
-                    biology = float(input('Nhập điểm hóa: '))
-                    if not is_valid_mon(biology):
-                        print("Vui lòng nhập lại.")
-                    else:
-                        break
-                student = StudentB(cccd, sbd, ho_ten, dia_chi, diem_toan, diem_hoa, biology)
-
+                    while True:
+                        diem_hoa = input('Nhập điểm lý: ')
+                        if not is_valid_mon(diem_hoa):
+                            print("Vui lòng nhập lại.")
+                        else:
+                            break
+                        
+                    while True:
+                        mon_sinh = input('Nhập điểm hóa: ')
+                        if not is_valid_mon(mon_sinh):
+                            print("Vui lòng nhập lại.")
+                        else:
+                            break
+                    student = StudentB(cccd, sbd, ho_ten, dia_chi, diem_toan, diem_hoa, mon_sinh)
+                    break
+                else:
+                    print("Không có khối đó")
             data.add_new_student(student)
             print('Thêm thí sinh thành công')
             print()
             pass
 
-        elif option == '2':#Tìm kiếm thí sinh
+        elif choice == '2':#Tìm kiếm thí sinh
             while True:
                 input_sbd = input("Nhập số báo danh của thí sinh cần tìm: ")
                 if not is_valid_sbd(input_sbd):
@@ -242,7 +239,7 @@ if __name__ == "__main__":
                 elif isinstance(found_student, StudentB):
                     print("Điểm Toán:", found_student.diem_toan)
                     print("Điểm Hóa học:", found_student.diem_hoa)
-                    print("Điểm Sinh học:", found_student.biology)
+                    print("Điểm Sinh học:", found_student.mon_sinh)
             else:
                 print("Không tìm thấy thí sinh với số báo danh trên.")
                 input_id = input("Vui lòng nhập số CCCD của thí sinh để tìm : ")
@@ -264,14 +261,14 @@ if __name__ == "__main__":
                     elif isinstance(found_by_id, StudentB):
                         print("Điểm Toán:", found_by_id.diem_toan)
                         print("Điểm Hóa học:", found_by_id.diem_hoa)
-                        print("Điểm Sinh học:", found_by_id.biology)
+                        print("Điểm Sinh học:", found_by_id.mon_sinh)
                 else:
                     print("Thí sinh không tồn tại.")
 
             print()
             pass
 
-        elif option == '3':#Sửa thông tin thí sinh
+        elif choice == '3':#Sửa thông tin thí sinh
             while True:
                 sbd = input("Nhập số báo danh của thí sinh : ")
                 if not is_valid_sbd(sbd):
@@ -305,21 +302,21 @@ if __name__ == "__main__":
                 exam_type = input("Nhập khối (A hoặc B): ")
                 if exam_type == "A" or 'a':
                     while True:
-                        new_info['diem_toan'] = float(input("Nhập điểm toán mới của thí sinh  : ") )
+                        new_info['diem_toan'] = input("Nhập điểm toán mới của thí sinh  : ") 
                         if not is_valid_mon(new_info['diem_toan']):
                             print("Vui lòng nhập lại.")
                         else:
                             break
 
                     while True:
-                        new_info['diem_ly'] = float(input("Nhập điểm vật lý mới của thí sinh  : ") )
+                        new_info['diem_ly'] = input("Nhập điểm vật lý mới của thí sinh  : ") 
                         if not is_valid_mon(new_info['diem_ly']):
                             print("Vui lòng nhập lại.")
                         else:
                             break
 
                     while True:
-                        new_info['diem_hoa'] = float(input("Nhập điểm hóa học mới của thí sinh  : ") )
+                        new_info['diem_hoa'] = input("Nhập điểm hóa học mới của thí sinh  : ") 
                         if not is_valid_mon(new_info['diem_hoa']):
                             print("Vui lòng nhập lại.")
                         else:
@@ -327,22 +324,22 @@ if __name__ == "__main__":
 
                 elif exam_type == "B" or 'b':
                     while True:
-                        new_info['diem_toan'] = float(input("Nhập điểm toán mới của thí sinh  : ") )
+                        new_info['diem_toan'] = input("Nhập điểm toán mới của thí sinh  : ") 
                         if not is_valid_mon(new_info['diem_hoa']):
                             print("Vui lòng nhập lại.")
                         else:
                             break
                             
                     while True:
-                        new_info['diem_hoa'] = float(input("Nhập điểm hóa học mới của thí sinh  : ") )
+                        new_info['diem_hoa'] = input("Nhập điểm hóa học mới của thí sinh  : ") 
                         if not is_valid_mon(new_info['diem_hoa']):
                             print("Vui lòng nhập lại.")
                         else:
                             break
                     
                     while True:
-                        new_info['biology'] = float(input("Nhập điểm toán mới của thí sinh  : ") )
-                        if not is_valid_mon(new_info['biology']):
+                        new_info['mon_sinh'] = input("Nhập điểm toán mới của thí sinh  : ") 
+                        if not is_valid_mon(new_info['mon_sinh']):
                             print("Vui lòng nhập lại.")
                         else:
                             break
@@ -356,7 +353,7 @@ if __name__ == "__main__":
             print()
             pass
 
-        elif option == '4':#Xóa thí sinh
+        elif choice == '4':#Xóa thí sinh
             while True:
                 input_sbd = input("Nhập số báo danh của thí sinh cần xóa: ")
                 if not is_valid_sbd(input_sbd):
@@ -373,7 +370,7 @@ if __name__ == "__main__":
             print()
             pass
 
-        # elif option == '5':# Hiển thị danh sách thí sinh có điểm để xét vào đại học
+        # elif choice == '5':# Hiển thị danh sách thí sinh có điểm để xét vào đại học
         #     order = input("Nhập 'asc' để sắp xếp thứ tự từ thấp đến cao, hoặc 'desc' để sắp xếp từ cao đến thấp: ")
         #     sorted_students = data.sort_student_list_by_total_score(order)
         #     for student in sorted_students:
@@ -381,7 +378,7 @@ if __name__ == "__main__":
         #     print()
         #     pass
 
-        # elif option == '6':# Hiển thị danh sách thí sinh đạt học bổng
+        # elif choice == '6':# Hiển thị danh sách thí sinh đạt học bổng
         #     students_with_scholarship = data.get_students_with_scholarship()
         #     if students_with_scholarship is not None:
         #         for student in students_with_scholarship:
@@ -394,18 +391,18 @@ if __name__ == "__main__":
         #     print()
         #     pass
 
-        # elif option == '7':# Hiển thị danh sách thí sinh không liệt môn nào
+        # elif choice == '7':# Hiển thị danh sách thí sinh không liệt môn nào
         #     students_without_failed_mons = data.get_student_list_without_failed_mons()
         #     if students_without_failed_mons is not None:
         #         for student in students_without_failed_mons:
         #             if isinstance(student, StudentA):
         #                 print(f"Tên: {student.ho_ten}, Toán: {student.diem_toan}, Lý: {student.diem_ly}, Hóa: {student.diem_hoa}")
         #             elif isinstance(student, StudentB):
-        #                 print(f"Tên: {student.ho_ten}, Toán: {student.diem_toan}, Hóa: {student.diem_hoa}, Sinh: {student.biology}")
+        #                 print(f"Tên: {student.ho_ten}, Toán: {student.diem_toan}, Hóa: {student.diem_hoa}, Sinh: {student.mon_sinh}")
         #     else:
         #         print("không có thí sinh trượt.")
         #     pass
-        elif option == '8':
+        elif choice == '8':
             print('Thoát chương trình')
             break
         else:
